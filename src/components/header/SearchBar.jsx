@@ -1,6 +1,7 @@
 import React from "react";
 
 const SearchBar = () => {
+  const { updateRecords } = useAppContext();
   return (
     <div>
       <input type="text" placeholder="Search..." />

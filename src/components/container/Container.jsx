@@ -2,9 +2,10 @@ import React, { useCallback, useEffect, useState } from "react";
 import TabMenu from "./TabMenu";
 import Filter from "./Filter";
 import RecordCard from "./RecordCard";
+import { useRecordsContext } from "../../contexts/RecordsContext";
 
 function Container() {
-  const [records, setRecords] = useState([]);
+  const { records, updateRecords } = useRecordsContext();
 
   async function fetchRecords() {
     const response = await fetch("http://localhost:1111/api/v1/get-records", {
@@ -15,7 +16,7 @@ function Container() {
       body: "[]",
     });
     const records = await response.json();
-    setRecords(records);
+    updateRecords(records);
   }
 
   useEffect(() => {

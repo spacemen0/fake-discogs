@@ -1,7 +1,6 @@
+import React from "react";
 
-import React from 'react';
-
-const RecordCard = ({ title, artist, year, genre , description}) => {
+const RecordCard = ({ title, artist, year, genre, description }) => {
   return (
     <div className="record-card">
       <h2>{title}</h2>

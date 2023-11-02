@@ -1,29 +1,37 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import ProfileDropdownMenu from "./ProfileDropdownMenu";
+import Login from "./Login";
+import Register from "./Register";
 
 function NavBar() {
-  const [showDropdown, setShowDropdown] = useState(false);
-  const profileRef = useRef(null);
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  const handleLogin = () => {
+    setLoggedIn(true);
+  };
 
   return (
     <nav>
       <ul>
         <li>
-          <a href="#">Messages</a>
+          <button href="#">Messages</button>
         </li>
         <li>
-          <a href="#">Cart</a>
+          <button href="#">Cart</button>
         </li>
         <li>
-          <a
-            href="#"
-            onClick={() => setShowDropdown(!showDropdown)}
-            ref={profileRef}
-          >
-            Profile
-          </a>
-          {showDropdown && <ProfileDropdownMenu />}
+          {loggedIn ? (
+            <ProfileDropdownMenu />
+          ) : (
+            <Login onLoginClick={handleLogin} />
+          )}
         </li>
+
+        {!loggedIn && (
+          <li>
+            <Register />
+          </li>
+        )}
       </ul>
     </nav>
   );

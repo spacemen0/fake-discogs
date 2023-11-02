@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function ProfileDropdownMenu() {
+function ProfileDropdownMenu({ onLogoutClick }) {
   const [showDropdown, setShowDropdown] = useState(false);
 
   return (
@@ -10,8 +10,12 @@ function ProfileDropdownMenu() {
       </button>
       {showDropdown && (
         <ul>
-          <li>Settings</li>
-          <li>Logout</li>
+          <li>
+            <button>Settings</button>
+          </li>
+          <li>
+            <button onClick={() => onLogoutClick()}>Logout</button>
+          </li>
         </ul>
       )}
     </div>

@@ -1,9 +1,27 @@
-import React from "react"
+import React, { useCallback, useEffect } from "react"
 import TabMenu from "./TabMenu"
 import Filter from "./Filter"
 import RecordCard from "./RecordCard"
 
+function FetchRecords() {
+    const fetchRecords = useCallback(async () => {
+        const response = await fetch("http://localhost:1111/get-records")
+        const records = await response.json()
+        console.log(records)
+    }, [])
+
+    useEffect(() => {
+        fetchRecords()
+    }, [fetchRecords])
+}
+
 function Container() {
+
+    FetchRecords()
+    useEffect(() => {
+        document.title = "Record Store"
+    }
+    , [])
     return (
         <div className="container">
             <TabMenu/>

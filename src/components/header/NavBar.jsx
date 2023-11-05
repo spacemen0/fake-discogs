@@ -6,6 +6,7 @@ import { useLoggedInContext } from "../../contexts/LoggedinContest";
 function NavBar() {
   const { loggedIn, updateLoggedIn } = useLoggedInContext();
   const [showLoginForm, setShowLoginForm] = useState(false);
+  const [showRegisterForm, setShowRegisterForm] = useState(false);
   const [logged, setLogged] = useState(false);
 
   const handleLogin = async (event, username, email, password) => {
@@ -31,7 +32,6 @@ function NavBar() {
       setShowLoginForm(false);
     }
     setLogged(true);
-    console.log(logged);
   };
   const handleLogout = () => {
     updateLoggedIn(false);
@@ -63,7 +63,13 @@ function NavBar() {
 
           {!logged && (
             <li>
-              <button>Register</button>
+              <button
+                onClick={() => {
+                  setShowRegisterForm(true);
+                }}
+              >
+                Register
+              </button>
             </li>
           )}
         </ul>

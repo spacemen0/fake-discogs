@@ -1,12 +1,10 @@
-import React, { useState } from "react";
-
 const TabMenu = () => {
   return (
     <div>
       <h2>Logo</h2>
-      <button>Button 1</button>
-      <button>Button 2</button>
-      <button>Button 3</button>
+      <button>Market</button>
+      <button>Wanted Records</button>
+      <button>My Records</button>
     </div>
   );
 };

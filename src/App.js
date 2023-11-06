@@ -1,16 +1,16 @@
 import Header from "./components/header/Header";
 import Container from "./components/container/Container";
 import { RecordsProvider } from "./contexts/RecordsContext";
-import { LoggedInProvider } from "./contexts/LoggedinContest";
+import { AuthProvider } from "./contexts/AuthContext";
 function App() {
   return (
     <div className="App">
-      <LoggedInProvider>
+      <AuthProvider>
         <RecordsProvider>
           <Header />
           <Container />
         </RecordsProvider>
-      </LoggedInProvider>
+      </AuthProvider>
     </div>
   );
 }

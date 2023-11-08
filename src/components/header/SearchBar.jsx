@@ -3,9 +3,10 @@ import { useRecordsContext } from "../../contexts/RecordsContext";
 const SearchBar = () => {
   const { updateRecords } = useRecordsContext();
   const [searchTerm, setSearchTerm] = useState("");
+  const [option, setOption] = useState("records");
   async function searchRecords() {
     const response = await fetch(
-      "http://localhost:1111/api/v1/search-records?search_term=" + searchTerm,
+      `http://localhost:1111/api/v1/search-records?search_term=${searchTerm}"`,
       {
         method: "POST",
         headers: {
@@ -17,6 +18,16 @@ const SearchBar = () => {
     const records = await response.json();
     updateRecords(records);
   }
+  async function searchUsers() {
+    const response = await fetch(
+      `http://localhost:1111/api/v1/get-users-by-username/${searchTerm}`,
+      {
+        method: "GET",
+      }
+    );
+    const users = await response.json();
+    console.log(users);
+  }
   return (
     <div>
       <input
@@ -26,9 +37,15 @@ const SearchBar = () => {
           setSearchTerm(e.target.value);
         }}
       />
+      <input
+        type="checkbox"
+        checked={option === "users"}
+        onChange={() => setOption(option === "records" ? "users" : "records")}
+      />
+      <span>search users</span>
       <button
         onClick={() => {
-          searchRecords();
+          option === "records" ? searchRecords() : searchUsers();
         }}
       >
         Search

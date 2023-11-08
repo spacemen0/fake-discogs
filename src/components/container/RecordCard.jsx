@@ -1,5 +1,3 @@
-import React from "react";
-
 const RecordCard = ({ key, title, artist, year, genre, description }) => {
   return (
     <div className="record-card">

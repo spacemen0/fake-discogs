@@ -1,24 +1,23 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import TabMenu from "./TabMenu";
+import SearchBar from "./SearchBar";
 import Filter from "./Filter";
 import RecordCard from "./RecordCard";
-import { useRecordsContext } from "../../contexts/RecordsContext";
+
+async function fetchRecords() {
+  const response = await fetch("http://localhost:1111/api/v1/get-records", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: "[]",
+  });
+  const records = await response.json();
+  // updateRecords(records);
+}
 
 function Container() {
-  const { records, updateRecords } = useRecordsContext();
-
-  async function fetchRecords() {
-    const response = await fetch("http://localhost:1111/api/v1/get-records", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: "[]",
-    });
-    const records = await response.json();
-    updateRecords(records);
-  }
-
+  const [records, setRecords] = React.useState([]);
   useEffect(() => {
     fetchRecords();
   }, []);
@@ -26,6 +25,7 @@ function Container() {
   return (
     <div className="container">
       <TabMenu />
+      <SearchBar />
       <Filter
         genres={["rock", "jazz", "pop"]}
         years={["1001", "1002"]}

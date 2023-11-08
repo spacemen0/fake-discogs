@@ -1,7 +1,5 @@
 import { useState } from "react";
-import { useRecordsContext } from "../../contexts/RecordsContext";
 const SearchBar = () => {
-  const { updateRecords } = useRecordsContext();
   const [searchTerm, setSearchTerm] = useState("");
   const [option, setOption] = useState("records");
   async function searchRecords() {
@@ -16,7 +14,7 @@ const SearchBar = () => {
       }
     );
     const records = await response.json();
-    updateRecords(records);
+    // updateRecords(records);
   }
   async function searchUsers() {
     const response = await fetch(

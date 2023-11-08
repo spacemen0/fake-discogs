@@ -1,12 +1,13 @@
 import { useState } from "react";
+import { useAuthContext } from "../../contexts/AuthContext";
 
 function ProfileDropdownMenu({ onLogoutClick }) {
   const [showDropdown, setShowDropdown] = useState(false);
-
+  const { userInfo } = useAuthContext();
   return (
     <div className="profile-dropdown-menu">
       <button href="#" onClick={() => setShowDropdown(!showDropdown)}>
-        Profile
+        Profile{userInfo && `: ${userInfo.username}`}
       </button>
       {showDropdown && (
         <ul>

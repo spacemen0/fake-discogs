@@ -6,7 +6,7 @@
 - [x] localhost:1111/api/v1/user-login
 - [x] localhost:1111/api/v1/get-records
 - [ ] localhost:1111/api/v1/get-user-by-username/:username
-- [ ] localhost:1111/api/v1/get-users-by-username/:username
+- [x] localhost:1111/api/v1/get-users-by-username/:username
 - [x] localhost:1111/api/v1/get-user
 - [x] localhost:1111/api/v1/search-records?search_term=sample
 - [ ] localhost:1111/api/v1/get-records-by-seller-name/:name

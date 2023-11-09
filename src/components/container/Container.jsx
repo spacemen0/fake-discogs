@@ -1,23 +1,26 @@
 import React, { useEffect } from "react";
+import config from "../../config";
 import TabMenu from "./TabMenu";
 import SearchBar from "./SearchBar";
 import Filter from "./Filter";
 import RecordCard from "./RecordCard";
-
-async function fetchRecords() {
-  const response = await fetch("http://localhost:1111/api/v1/get-records", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: "[]",
-  });
-  const records = await response.json();
-  // updateRecords(records);
-}
+import UserCard from "./UserCard";
 
 function Container() {
   const [records, setRecords] = React.useState([]);
+  const [users, setUsers] = React.useState([]);
+  const [showUsers, setShowUsers] = React.useState(false);
+  async function fetchRecords() {
+    const response = await fetch(`${config.apiUrl}get-records`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: "[]",
+    });
+    const records = await response.json();
+    setRecords(records);
+  }
   useEffect(() => {
     fetchRecords();
   }, []);
@@ -25,22 +28,28 @@ function Container() {
   return (
     <div className="container">
       <TabMenu />
-      <SearchBar />
+      <SearchBar
+        setRecords={setRecords}
+        setUsers={setUsers}
+        setShowUsers={setShowUsers}
+      />
       <Filter
         genres={["rock", "jazz", "pop"]}
         years={["1001", "1002"]}
         statuses={["sold", "selling"]}
       />
-      {records.map((record) => (
-        <RecordCard
-          key={record.id}
-          title={record.title}
-          artist={record.artist}
-          genre={record.genre}
-          year={record.year}
-          description={record.description}
-        />
-      ))}
+      {showUsers
+        ? users.map((user, index) => <UserCard key={index} user={user} />)
+        : records.map((record) => (
+            <RecordCard
+              key={record.ID}
+              title={record.title}
+              artist={record.artist}
+              genre={record.genre}
+              year={record.release_year}
+              description={record.description}
+            />
+          ))}
     </div>
   );
 }

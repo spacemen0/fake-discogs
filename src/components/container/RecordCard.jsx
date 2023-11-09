@@ -1,4 +1,4 @@
-const RecordCard = ({ key, title, artist, year, genre, description }) => {
+const RecordCard = ({ title, artist, year, genre, description }) => {
   return (
     <div className="record-card">
       <h2>{title}</h2>

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import config from "../../config";
 import ProfileDropdownMenu from "./ProfileDropdownMenu";
 import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
@@ -21,7 +22,7 @@ function NavBar() {
   };
   const handleRegister = async (event, username, email, password) => {
     event.preventDefault();
-    const response = await fetch("http://localhost:1111/api/v1/user-register", {
+    const response = await fetch(`${config.apiUrl}user-register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

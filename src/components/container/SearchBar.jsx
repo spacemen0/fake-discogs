@@ -1,10 +1,11 @@
 import { useState } from "react";
-const SearchBar = () => {
+import config from "../../config";
+const SearchBar = ({ setRecords, setUsers, setShowUsers }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [option, setOption] = useState("records");
   async function searchRecords() {
     const response = await fetch(
-      `http://localhost:1111/api/v1/search-records?search_term=${searchTerm}"`,
+      `${config.apiUrl}search-records?search_term=${searchTerm}"`,
       {
         method: "POST",
         headers: {
@@ -14,17 +15,19 @@ const SearchBar = () => {
       }
     );
     const records = await response.json();
-    // updateRecords(records);
+    setRecords(records);
+    setShowUsers(false);
   }
   async function searchUsers() {
     const response = await fetch(
-      `http://localhost:1111/api/v1/get-users-by-username/${searchTerm}`,
+      `${config.apiUrl}get-users-by-username/${searchTerm}`,
       {
         method: "GET",
       }
     );
     const users = await response.json();
-    console.log(users);
+    setUsers(users);
+    setShowUsers(true);
   }
   return (
     <div>

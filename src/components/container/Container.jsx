@@ -10,7 +10,7 @@ function Container() {
   const [records, setRecords] = React.useState([]);
   const [users, setUsers] = React.useState([]);
   const [showUsers, setShowUsers] = React.useState(false);
-  async function fetchRecords() {
+  async function getAllRecords() {
     const response = await fetch(`${config.apiUrl}get-records`, {
       method: "POST",
       headers: {
@@ -22,12 +22,12 @@ function Container() {
     setRecords(records);
   }
   useEffect(() => {
-    fetchRecords();
+    getAllRecords();
   }, []);
 
   return (
     <div className="container">
-      <TabMenu />
+      <TabMenu setRecords={setRecords} fetchRecords={getAllRecords} />
       <SearchBar
         setRecords={setRecords}
         setUsers={setUsers}

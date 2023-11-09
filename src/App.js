@@ -1,14 +1,16 @@
-import Header from "./components/header/Header";
-import Container from "./components/container/Container";
-import { AuthProvider } from "./contexts/AuthContext";
+import { Routes, Route, BrowserRouter } from "react-router-dom";
+import User from "./pages/user";
+import Home from "./pages/home";
 function App() {
   return (
-    <div className="App">
-      <AuthProvider>
-        <Header />
-        <Container />
-      </AuthProvider>
-    </div>
+    <>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/user" element={<User />} />
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 }
 

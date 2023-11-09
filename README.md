@@ -9,7 +9,7 @@
 - [x] localhost:1111/api/v1/get-users-by-username/:username
 - [x] localhost:1111/api/v1/get-user
 - [x] localhost:1111/api/v1/search-records?search_term=sample
-- [ ] localhost:1111/api/v1/get-records-by-seller-name/:name
+- [x] localhost:1111/api/v1/get-records-by-seller-name/:name
 - [ ] localhost:1111/api/v1/get-record/:id
 - [ ] localhost:1111/api/v1/update-record/:id
 - [ ] localhost:1111/api/v1/delete-record/:id

@@ -1,7 +1,9 @@
+import { Link } from "react-router-dom";
+
 const UserCard = ({ user }) => {
   return (
     <div>
-      <h1>{user.username}</h1>
+      <Link to={`/user/${user.username}`}>{user.username}</Link>
       <p>{user.bio}</p>
     </div>
   );

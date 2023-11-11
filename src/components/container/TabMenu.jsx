@@ -1,6 +1,6 @@
 import { useAuthContext } from "../../contexts/AuthContext";
 import config from "../../config";
-const TabMenu = ({ setRecords, fetchRecords: getAllRecords }) => {
+const TabMenu = ({ setRecords, getAllRecords }) => {
   const { userInfo } = useAuthContext();
   const handleSelling = async () => {
     console.log(userInfo.username);

@@ -4,6 +4,7 @@ import ProfileDropdownMenu from "./ProfileDropdownMenu";
 import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
 import { useAuthContext } from "../../contexts/AuthContext";
+import { Link } from "react-router-dom";
 
 function NavBar() {
   const { isAuthenticated, login, logout } = useAuthContext();
@@ -44,10 +45,10 @@ function NavBar() {
       <nav>
         <ul>
           <li>
-            <a href="/">Home</a>
+            <Link to="/">Home</Link>
           </li>
           <li>
-            <a href="/">Cart</a>
+            <Link to="/cart">Cart</Link>
           </li>
           <li>
             {isAuthenticated ? (

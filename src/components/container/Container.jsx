@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useState, useEffect } from "react";
 import config from "../../config";
 import TabMenu from "./TabMenu";
 import SearchBar from "./SearchBar";
@@ -7,9 +7,9 @@ import RecordCard from "./RecordCard";
 import UserCard from "./UserCard";
 
 function Container() {
-  const [records, setRecords] = React.useState([]);
-  const [users, setUsers] = React.useState([]);
-  const [showUsers, setShowUsers] = React.useState(false);
+  const [records, setRecords] = useState([]);
+  const [users, setUsers] = useState([]);
+  const [showUsers, setShowUsers] = useState(false);
   async function getAllRecords() {
     const response = await fetch(`${config.apiUrl}get-records`, {
       method: "POST",
@@ -27,7 +27,7 @@ function Container() {
 
   return (
     <div className="container">
-      <TabMenu setRecords={setRecords} fetchRecords={getAllRecords} />
+      <TabMenu setRecords={setRecords} getAllRecords={getAllRecords} />
       <SearchBar
         setRecords={setRecords}
         setUsers={setUsers}

@@ -16,6 +16,7 @@ function NavBar() {
 
     if (result.success) {
       setShowLoginForm(false);
+      setShowRegisterForm(false);
     } else {
       window.alert(result.error);
     }
@@ -43,10 +44,10 @@ function NavBar() {
       <nav>
         <ul>
           <li>
-            <button href="#">Messages</button>
+            <a href="/">Home</a>
           </li>
           <li>
-            <button href="#">Cart</button>
+            <a href="/">Cart</a>
           </li>
           <li>
             {isAuthenticated ? (
@@ -54,7 +55,7 @@ function NavBar() {
             ) : (
               <button
                 onClick={() => {
-                  setShowLoginForm(true);
+                  setShowLoginForm(!showLoginForm);
                 }}
               >
                 Login
@@ -62,11 +63,11 @@ function NavBar() {
             )}
           </li>
 
-          {isAuthenticated && (
+          {!isAuthenticated && (
             <li>
               <button
                 onClick={() => {
-                  setShowRegisterForm(true);
+                  setShowRegisterForm(!showRegisterForm);
                 }}
               >
                 Register

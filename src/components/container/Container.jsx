@@ -48,6 +48,7 @@ function Container() {
               genre={record.genre}
               year={record.release_year}
               description={record.description}
+              seller_name={record.seller_name}
             />
           ))}
     </div>

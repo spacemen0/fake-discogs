@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState } from "react";
+import config from "../config";
 
 const AuthContext = createContext();
 
@@ -11,8 +12,8 @@ export const AuthProvider = ({ children }) => {
     try {
       const url =
         option === "username"
-          ? "http://localhost:1111/api/v1/user-login/username"
-          : "http://localhost:1111/api/v1/user-login/email";
+          ? `${config.apiUrl}user-login/username`
+          : `${config.apiUrl}user-login/email`;
       const body =
         option === "username" ? { username, password } : { email, password };
       const response = await fetch(url, {
@@ -40,7 +41,7 @@ export const AuthProvider = ({ children }) => {
   };
   const getUserInfo = async (token) => {
     try {
-      const response = await fetch("http://localhost:1111/api/v1/get-user", {
+      const response = await fetch(`${config.apiUrl}get-user`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,

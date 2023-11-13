@@ -7,18 +7,11 @@ import UserCard from "../components/container/UserCard";
 function User() {
   const { username } = useParams();
   const [user, setUser] = useState({});
-  async function searchUser() {
-    const response = await fetch(
-      `${config.apiUrl}get-user-by-username/${username}`,
-      {
-        method: "GET",
-      }
-    );
-    const user = await response.json();
-    setUser(user);
-  }
+
   useEffect(() => {
-    searchUser();
+    fetch(`${config.apiUrl}get-user-by-username/${username}`, {
+      method: "GET",
+    }).then((response) => setUser(response.json()));
   }, [username]);
   return (
     <div>

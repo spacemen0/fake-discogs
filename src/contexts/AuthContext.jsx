@@ -4,9 +4,18 @@ import config from "../config";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [userInfo, setUserInfo] = useState(null);
-  const [token, setToken] = useState(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(() => {
+    const storedValue = localStorage.getItem("isAuthenticated");
+    return storedValue ? JSON.parse(storedValue) : false;
+  });
+  const [userInfo, setUserInfo] = useState(() => {
+    const storedValue = localStorage.getItem("userInfo");
+    return storedValue ? JSON.parse(storedValue) : null;
+  });
+  const [token, setToken] = useState(() => {
+    const storedValue = localStorage.getItem("token");
+    return storedValue ? JSON.parse(storedValue) : null;
+  });
 
   const login = async (username, email, password, option) => {
     try {
@@ -28,6 +37,8 @@ export const AuthProvider = ({ children }) => {
         const data = await response.json();
         setIsAuthenticated(true);
         setToken(data);
+        localStorage.setItem("isAuthenticated", JSON.stringify(true));
+        localStorage.setItem("token", JSON.stringify(data));
         getUserInfo(data);
         return { success: true, error: null };
       } else {
@@ -50,6 +61,7 @@ export const AuthProvider = ({ children }) => {
       if (response.status === 200) {
         const data = await response.json();
         setUserInfo(data);
+        localStorage.setItem("userInfo", JSON.stringify(data));
       } else {
         const data = await response.json();
         console.log(data);
@@ -62,6 +74,9 @@ export const AuthProvider = ({ children }) => {
     setIsAuthenticated(false);
     setUserInfo(null);
     setToken(null);
+    localStorage.setItem("isAuthenticated", JSON.stringify(false));
+    localStorage.setItem("token", JSON.stringify(null));
+    localStorage.setItem("userInfo", JSON.stringify(null));
   };
   const contextValue = {
     isAuthenticated,

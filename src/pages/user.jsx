@@ -17,7 +17,7 @@ function User() {
     <div>
       <Header />
       <UserCard user={user} />
-      <h1>{username}'s Records</h1>
+      <h1>{username}'s Collections</h1>
       <UserRecords username={username} />
     </div>
   );

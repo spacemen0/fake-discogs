@@ -2,19 +2,42 @@ import React, { createContext, useContext, useState } from "react";
 import config from "../config";
 
 const AuthContext = createContext();
+function setWithExpiry(key, value, ttl) {
+  const now = new Date();
+  const item = {
+    value: value,
+    expiry: now.getTime() + ttl,
+  };
+  localStorage.setItem(key, JSON.stringify(item));
+}
+
+function getWithExpiry(key) {
+  const itemStr = localStorage.getItem(key);
+  if (!itemStr) {
+    return null;
+  }
+  const item = JSON.parse(itemStr);
+  const now = new Date();
+ 
+  if (now.getTime() > item.expiry) {
+    localStorage.removeItem(key);
+    return null;
+  }
+  return item.value;
+}
 
 export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
-    const storedValue = localStorage.getItem("isAuthenticated");
-    return storedValue ? JSON.parse(storedValue) : false;
+    const storedValue = getWithExpiry("isAuthenticated");
+    return storedValue ? storedValue : null;
   });
   const [userInfo, setUserInfo] = useState(() => {
-    const storedValue = localStorage.getItem("userInfo");
-    return storedValue ? JSON.parse(storedValue) : null;
+    const storedValue = getWithExpiry("userInfo");
+    return storedValue ? storedValue : null;
   });
   const [token, setToken] = useState(() => {
-    const storedValue = localStorage.getItem("token");
-    return storedValue ? JSON.parse(storedValue) : null;
+    const storedValue = getWithExpiry("token");
+    return storedValue ? storedValue : null;
   });
 
   const login = async (username, email, password, option) => {
@@ -37,8 +60,8 @@ export const AuthProvider = ({ children }) => {
         const data = await response.json();
         setIsAuthenticated(true);
         setToken(data);
-        localStorage.setItem("isAuthenticated", JSON.stringify(true));
-        localStorage.setItem("token", JSON.stringify(data));
+        setWithExpiry("isAuthenticated", true, 1000 * 60 * 60 * 24);
+        setWithExpiry("token", data, 1000 * 60 * 60 * 24);
         getUserInfo(data);
         return { success: true, error: null };
       } else {
@@ -61,7 +84,7 @@ export const AuthProvider = ({ children }) => {
       if (response.status === 200) {
         const data = await response.json();
         setUserInfo(data);
-        localStorage.setItem("userInfo", JSON.stringify(data));
+        setWithExpiry("userInfo", data, 1000 * 60 * 60 * 24);
       } else {
         const data = await response.json();
         console.log(data);
@@ -74,9 +97,9 @@ export const AuthProvider = ({ children }) => {
     setIsAuthenticated(false);
     setUserInfo(null);
     setToken(null);
-    localStorage.setItem("isAuthenticated", JSON.stringify(false));
-    localStorage.setItem("token", JSON.stringify(null));
-    localStorage.setItem("userInfo", JSON.stringify(null));
+    setWithExpiry("isAuthenticated", false, 1000 * 60 * 60 * 24);
+    setWithExpiry("token", null, 1000 * 60 * 60 * 24);
+    setWithExpiry("userInfo", null, 1000 * 60 * 60 * 24);
   };
   const contextValue = {
     isAuthenticated,

@@ -51,9 +51,8 @@ const TabMenu = ({ setRecords, getAllRecords }) => {
     });
     if (response.status === 201) {
       const data = await response.json();
-      console.log(data);
       setShowRecordForm(false);
-          const formData = new FormData();
+      const formData = new FormData();
           formData.append("image", image);
        const imageResponse = await fetch(`${config.apiUrl}create-image/${data.ID}`, {
          method: "POST",
@@ -62,7 +61,7 @@ const TabMenu = ({ setRecords, getAllRecords }) => {
          },
          body: formData,
        });
-       if (imageResponse.status === 200) {
+       if (imageResponse.status === 201) {
          console.log("Image uploaded successfully");
        } else {
          console.log("Image upload failed");

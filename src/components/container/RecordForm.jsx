@@ -8,6 +8,7 @@ const RecordForm = ({ handleSubmit }) => {
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState(0);
   const [status, setStatus] = useState("available");
+  const [image, setImage] = useState("");
 
   return (
     <form
@@ -20,7 +21,8 @@ const RecordForm = ({ handleSubmit }) => {
           genre,
           description,
           price,
-          status
+          status,
+          image
         );
       }}
     >
@@ -80,7 +82,14 @@ const RecordForm = ({ handleSubmit }) => {
           <option value="reserved">Reserved</option>
         </select>
       </label>
-      <button type="submit">Add Record</button>
+      <label>
+        Image:
+        <input type="file"
+          value={image}
+          onChange={(e) => setImage(e.target.value)}
+        />
+      </label>
+      <button type="submit">Confirm</button>
     </form>
   );
 };

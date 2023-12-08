@@ -5,7 +5,7 @@ import RecordForm from "./RecordForm";
 const TabMenu = ({ setRecords, getAllRecords }) => {
   const { isAuthenticated, token, userInfo } = useAuthContext();
   const [showRecordForm, setShowRecordForm] = useState(false);
-  const handleSelling = async () => {
+  const handleSellerRecords = async () => {
     console.log(userInfo.username);
     const response = await fetch(
       `${config.apiUrl}get-records-by-seller-name/${userInfo.username}`,
@@ -20,7 +20,7 @@ const TabMenu = ({ setRecords, getAllRecords }) => {
     const records = await response.json();
     setRecords(records);
   };
-  const handleAdding = async (
+  const handleCreatingRecords = async (
     e,
     title,
     artist,
@@ -28,7 +28,8 @@ const TabMenu = ({ setRecords, getAllRecords }) => {
     genre,
     description,
     price,
-    status
+    status,
+    image
   ) => {
     e.preventDefault();
     release_year = parseInt(release_year);
@@ -52,10 +53,26 @@ const TabMenu = ({ setRecords, getAllRecords }) => {
       const data = await response.json();
       console.log(data);
       setShowRecordForm(false);
+          const formData = new FormData();
+          formData.append("image", image);
+       const imageResponse = await fetch(`${config.apiUrl}create-image/${data.ID}`, {
+         method: "POST",
+         headers: {
+           Authorization: `Bearer ${token}`,
+         },
+         body: formData,
+       });
+       if (imageResponse.status === 200) {
+         console.log("Image uploaded successfully");
+       } else {
+         console.log("Image upload failed");
+       }
     } else {
-      const data = await response.json();
+                            const data = await response.json();
       console.log(data);
     }
+
+
   };
   return (
     <div>
@@ -63,14 +80,14 @@ const TabMenu = ({ setRecords, getAllRecords }) => {
       <button onClick={getAllRecords}>Market</button>
       <button>Wanted Records</button>
       {isAuthenticated && (
-        <button onClick={handleSelling}>My Selling List</button>
+        <button onClick={handleSellerRecords}>My Selling List</button>
       )}
       {isAuthenticated && (
         <button onClick={() => setShowRecordForm(!showRecordForm)}>
           Add Record
         </button>
       )}
-      {showRecordForm && <RecordForm handleSubmit={handleAdding} />}
+      {showRecordForm && <RecordForm handleSubmit={handleCreatingRecords} />}
     </div>
   );
 };

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { useAuthContext } from "../../contexts/AuthContext";
 
 function ProfileDropdownMenu({ onLogoutClick, onDeleteAccount }) {
@@ -18,7 +19,10 @@ function ProfileDropdownMenu({ onLogoutClick, onDeleteAccount }) {
             <button onClick={() => onLogoutClick()}>Logout</button>
           </li>
           <li>
-            <button onClick={()=> onDeleteAccount()}>Delete Account</button>
+            <button onClick={() => onDeleteAccount()}>Delete Account</button>
+          </li>
+          <li>
+            <Link to={`/user/${userInfo.username}`}>My Page</Link>
           </li>
         </ul>
       )}

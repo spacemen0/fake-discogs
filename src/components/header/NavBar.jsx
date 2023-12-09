@@ -7,7 +7,7 @@ import { useAuthContext } from "../../contexts/AuthContext";
 import { Link } from "react-router-dom";
 
 function NavBar() {
-  const { isAuthenticated, login, logout,token } = useAuthContext();
+  const { isAuthenticated, login, logout,token,userInfo } = useAuthContext();
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [showRegisterForm, setShowRegisterForm] = useState(false);
 
@@ -62,7 +62,7 @@ function NavBar() {
             <Link to="/">Home</Link>
           </li>
           <li>
-            <Link to="/cart">Cart</Link>
+            <Link to={`/cart/${userInfo.username}`}>Cart</Link>
           </li>
           <li>
             {isAuthenticated ? (

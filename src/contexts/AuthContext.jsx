@@ -60,8 +60,8 @@ export const AuthProvider = ({ children }) => {
         const data = await response.json();
         setIsAuthenticated(true);
         setToken(data);
-        setWithExpiry("isAuthenticated", true, 1000 * 60 * 60 * 24);
-        setWithExpiry("token", data, 1000 * 60 * 60 * 24);
+        setWithExpiry("isAuthenticated", true, config.expiryTime);
+        setWithExpiry("token", data, config.expiryTime);
         getUserInfo(data);
         return { success: true, error: null };
       } else {
@@ -84,7 +84,7 @@ export const AuthProvider = ({ children }) => {
       if (response.status === 200) {
         const data = await response.json();
         setUserInfo(data);
-        setWithExpiry("userInfo", data, 1000 * 60 * 60 * 24);
+        setWithExpiry("userInfo", data, config.expiryTime);
       } else {
         const data = await response.json();
         console.log(data);
@@ -97,9 +97,9 @@ export const AuthProvider = ({ children }) => {
     setIsAuthenticated(false);
     setUserInfo(null);
     setToken(null);
-    setWithExpiry("isAuthenticated", false, 1000 * 60 * 60 * 24);
-    setWithExpiry("token", null, 1000 * 60 * 60 * 24);
-    setWithExpiry("userInfo", null, 1000 * 60 * 60 * 24);
+    setWithExpiry("isAuthenticated", false, config.expiryTime);
+    setWithExpiry("token", null, config.expiryTime);
+    setWithExpiry("userInfo", null, config.expiryTime);
   };
   const contextValue = {
     isAuthenticated,

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useAuthContext } from "../../contexts/AuthContext";
 
-function ProfileDropdownMenu({ onLogoutClick }) {
+function ProfileDropdownMenu({ onLogoutClick, onDeleteAccount }) {
   const [showDropdown, setShowDropdown] = useState(false);
   const { userInfo } = useAuthContext();
   return (
@@ -16,6 +16,9 @@ function ProfileDropdownMenu({ onLogoutClick }) {
           </li>
           <li>
             <button onClick={() => onLogoutClick()}>Logout</button>
+          </li>
+          <li>
+            <button onClick={()=> onDeleteAccount()}>Delete Account</button>
           </li>
         </ul>
       )}

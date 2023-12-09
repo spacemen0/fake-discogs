@@ -7,7 +7,7 @@ import { useAuthContext } from "../../contexts/AuthContext";
 import { Link } from "react-router-dom";
 
 function NavBar() {
-  const { isAuthenticated, login, logout } = useAuthContext();
+  const { isAuthenticated, login, logout,token } = useAuthContext();
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [showRegisterForm, setShowRegisterForm] = useState(false);
 
@@ -22,6 +22,7 @@ function NavBar() {
       window.alert(result.error);
     }
   };
+
   const handleRegister = async (event, username, email, password) => {
     event.preventDefault();
     const response = await fetch(`${config.apiUrl}user-register`, {
@@ -37,9 +38,22 @@ function NavBar() {
       setShowRegisterForm(false);
     }
   };
+
   const handleLogout = () => {
     logout();
   };
+
+  const handleDeleteAccount = async () => {
+    const response = await fetch(`${config.apiUrl}delete-user`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (response.status === 204) {
+      logout();
+    }
+  }
   return (
     <>
       <nav>
@@ -52,7 +66,7 @@ function NavBar() {
           </li>
           <li>
             {isAuthenticated ? (
-              <ProfileDropdownMenu onLogoutClick={handleLogout} />
+              <ProfileDropdownMenu onLogoutClick={handleLogout} onDeleteAccount={handleDeleteAccount} />
             ) : (
               <button
                 onClick={() => {

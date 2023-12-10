@@ -41,15 +41,7 @@ function Container() {
       {showUsers
         ? users.map((user, index) => <UserCard key={index} user={user} />)
         : records.map((record) => (
-            <RecordCard
-              key={record.ID}
-              title={record.title}
-              artist={record.artist}
-              genre={record.genre}
-              year={record.release_year}
-              description={record.description}
-              seller_name={record.seller_name}
-            />
+            <RecordCard record={record} key={record.ID} expandable={true} />
           ))}
     </div>
   );

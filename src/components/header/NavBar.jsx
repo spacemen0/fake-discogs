@@ -62,7 +62,7 @@ function NavBar() {
             <Link to="/">Home</Link>
           </li>
 
-          {isAuthenticated && (
+          {userInfo && (
             <li>
               <Link to={`/cart/${userInfo.username}`}>Cart</Link>
             </li>

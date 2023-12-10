@@ -1,21 +1,19 @@
 import { Link } from "react-router-dom";
 
-const RecordCard = ({
-  title,
-  artist,
-  year,
-  genre,
-  description,
-  seller_name,
-}) => {
+const RecordCard = ({ record, expandable }) => {
   return (
     <div className="record-card">
-      <h2>{title}</h2>
-      <p>{artist}</p>
-      <p>{year}</p>
-      <p>{genre}</p>
-      <p>{description}</p>
-      <Link to={`/user/${seller_name}`}>{seller_name}</Link>
+      <h2>{record.title}</h2>
+      <p>{record.artist}</p>
+      <p>{record.release_year}</p>
+      <p>{record.genre}</p>
+      <p>{record.description}</p>
+      <p>{record.price}</p>
+      <p>{record.status}</p>
+      {expandable && <Link to={`/record/${record.ID}`}>View</Link>}
+
+      <p>Seller:</p>
+      <Link to={`/user/${record.seller_name}`}>{record.seller_name}</Link>
     </div>
   );
 };

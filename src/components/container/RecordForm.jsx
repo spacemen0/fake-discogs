@@ -84,9 +84,7 @@ const RecordForm = ({ handleSubmit }) => {
       </label>
       <label>
         Image:
-        <input type="file"
-          onChange={(e) => setImage(e.target.files[0])}
-        />
+        <input type="file" onChange={(e) => setImage(e.target.files[0])} />
       </label>
       <button type="submit">Confirm</button>
     </form>

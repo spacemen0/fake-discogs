@@ -7,7 +7,7 @@ import { useAuthContext } from "../../contexts/AuthContext";
 import { Link } from "react-router-dom";
 
 function NavBar() {
-  const { isAuthenticated, login, logout,token,userInfo } = useAuthContext();
+  const { isAuthenticated, login, logout, token, userInfo } = useAuthContext();
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [showRegisterForm, setShowRegisterForm] = useState(false);
 
@@ -53,7 +53,7 @@ function NavBar() {
     if (response.status === 204) {
       logout();
     }
-  }
+  };
   return (
     <>
       <nav>
@@ -61,12 +61,19 @@ function NavBar() {
           <li>
             <Link to="/">Home</Link>
           </li>
-          <li>
-            <Link to={`/cart/${userInfo.username}`}>Cart</Link>
-          </li>
+
+          {isAuthenticated && (
+            <li>
+              <Link to={`/cart/${userInfo.username}`}>Cart</Link>
+            </li>
+          )}
+
           <li>
             {isAuthenticated ? (
-              <ProfileDropdownMenu onLogoutClick={handleLogout} onDeleteAccount={handleDeleteAccount} />
+              <ProfileDropdownMenu
+                onLogoutClick={handleLogout}
+                onDeleteAccount={handleDeleteAccount}
+              />
             ) : (
               <button
                 onClick={() => {

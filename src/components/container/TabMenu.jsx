@@ -53,25 +53,26 @@ const TabMenu = ({ setRecords, getAllRecords }) => {
       const data = await response.json();
       setShowRecordForm(false);
       const formData = new FormData();
-          formData.append("image", image);
-       const imageResponse = await fetch(`${config.apiUrl}create-image/${data.ID}`, {
-         method: "POST",
-         headers: {
-           Authorization: `Bearer ${token}`,
-         },
-         body: formData,
-       });
-       if (imageResponse.status === 201) {
-         console.log("Image uploaded successfully");
-       } else {
-         console.log("Image upload failed");
-       }
+      formData.append("image", image);
+      const imageResponse = await fetch(
+        `${config.apiUrl}create-image/${data.ID}`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          body: formData,
+        }
+      );
+      if (imageResponse.status === 201) {
+        console.log("Image uploaded successfully");
+      } else {
+        console.log("Image upload failed");
+      }
     } else {
-                            const data = await response.json();
+      const data = await response.json();
       console.log(data);
     }
-
-
   };
   return (
     <div>

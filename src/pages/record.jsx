@@ -8,8 +8,8 @@ function Record() {
   const { record_id } = useParams();
   const [record, setRecord] = useState({});
   const [ok, setOk] = useState(false);
-  async function fetchData() {
-    try {
+  useEffect(() => {
+    const fetchData = async () => {
       const response = await fetch(`${config.apiUrl}get-record/${record_id}`, {
         method: "GET",
       });
@@ -21,13 +21,10 @@ function Record() {
       const data = await response.json();
       setRecord(data);
       setOk(true);
-    } catch (error) {
-      console.error(error);
-    }
-  }
-  useEffect(() => {
+    };
+
     fetchData();
-  });
+  }, [record_id]);
 
   return (
     <div>
@@ -35,14 +32,14 @@ function Record() {
       {ok ? (
         <>
           <RecordCard record={record} expandable={false} />
-          {/* {record.img_url !== undefined ? (
+          {record.image_url !== "" ? (
             <img
-              src={`${config.serverPath}${record.img_url}`}
+              src={`${config.apiUrl}images/${record.image_url}.jpg`}
               alt="cover art"
             />
           ) : (
             <p>No image</p>
-          )} */}
+          )}
         </>
       ) : (
         <p>Loading...</p>

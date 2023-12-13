@@ -21,7 +21,6 @@ const TabMenu = ({ setRecords, getAllRecords }) => {
     setRecords(records);
   };
   const handleCreatingRecords = async (
-    e,
     id,
     title,
     artist,
@@ -32,7 +31,6 @@ const TabMenu = ({ setRecords, getAllRecords }) => {
     status,
     image
   ) => {
-    e.preventDefault();
     release_year = parseInt(release_year);
     price = parseFloat(price);
     const response = await fetch(`${config.apiUrl}create-record`, {

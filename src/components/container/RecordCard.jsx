@@ -9,7 +9,6 @@ const RecordCard = ({ record, expandable, handleDelete }) => {
   const [showRecordForm, setShowRecordForm] = useState(false);
 
   async function updateRecord(
-    e,
     id,
     title,
     artist,
@@ -20,7 +19,6 @@ const RecordCard = ({ record, expandable, handleDelete }) => {
     status,
     image
   ) {
-    e.preventDefault();
     release_year = parseInt(release_year);
     price = parseFloat(price);
     const response = await fetch(`${config.apiUrl}update-record/${id}`, {
@@ -38,7 +36,7 @@ const RecordCard = ({ record, expandable, handleDelete }) => {
         status,
       }),
     });
-    if (response.status === 201 && image) {
+    if (response.status === 200 && image) {
       const data = await response.json();
       setShowRecordForm(false);
       const formData = new FormData();
@@ -91,7 +89,7 @@ const RecordCard = ({ record, expandable, handleDelete }) => {
         </>
       )}
       {showRecordForm && (
-        <RecordForm handleSubmit={updateRecord} id={record.ID} />
+        <RecordForm handleSubmit={updateRecord} record={record} />
       )}
     </div>
   );

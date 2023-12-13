@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 
-const RecordForm = ({ handleSubmit, id }) => {
+const RecordForm = ({ handleSubmit, record }) => {
   const [title, setTitle] = useState("");
   const [artist, setArtist] = useState("");
   const [release_year, setReleaseYear] = useState(0);
@@ -9,13 +9,23 @@ const RecordForm = ({ handleSubmit, id }) => {
   const [price, setPrice] = useState(0);
   const [status, setStatus] = useState("available");
   const [image, setImage] = useState("");
-
+  useEffect(() => {
+    if (record) {
+      setTitle(record.title);
+      setArtist(record.artist);
+      setReleaseYear(record.release_year);
+      setGenre(record.genre);
+      setDescription(record.description);
+      setPrice(record.price);
+      setStatus(record.status);
+    }
+  }, [record]);
   return (
     <form
       onSubmit={(e) => {
+        e.preventDefault();
         handleSubmit(
-          e,
-          id,
+          record.ID,
           title,
           artist,
           release_year,

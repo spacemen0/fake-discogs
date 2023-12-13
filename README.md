@@ -12,6 +12,6 @@
 - [x] /api/v1/search-records?search_term=sample
 - [x] /api/v1/get-records-by-seller-name/:name
 - [x] /api/v1/get-record/:id
-- [ ] /api/v1/update-record/:id
-- [ ] /api/v1/delete-record/:id
+- [x] /api/v1/update-record/:id
+- [x] /api/v1/delete-record/:id
 - [x] /api/v1/create-record

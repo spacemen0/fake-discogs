@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const RecordForm = ({ handleSubmit }) => {
+const RecordForm = ({ handleSubmit, id }) => {
   const [title, setTitle] = useState("");
   const [artist, setArtist] = useState("");
   const [release_year, setReleaseYear] = useState(0);
@@ -15,6 +15,7 @@ const RecordForm = ({ handleSubmit }) => {
       onSubmit={(e) => {
         handleSubmit(
           e,
+          id,
           title,
           artist,
           release_year,

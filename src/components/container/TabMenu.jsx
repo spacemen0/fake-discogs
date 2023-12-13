@@ -22,6 +22,7 @@ const TabMenu = ({ setRecords, getAllRecords }) => {
   };
   const handleCreatingRecords = async (
     e,
+    id,
     title,
     artist,
     release_year,
@@ -49,7 +50,7 @@ const TabMenu = ({ setRecords, getAllRecords }) => {
         status,
       }),
     });
-    if (response.status === 201 && image) {
+    if (response.status === 200 && image) {
       const data = await response.json();
       setShowRecordForm(false);
       const formData = new FormData();
@@ -87,7 +88,9 @@ const TabMenu = ({ setRecords, getAllRecords }) => {
           Add Record
         </button>
       )}
-      {showRecordForm && <RecordForm handleSubmit={handleCreatingRecords} />}
+      {showRecordForm && (
+        <RecordForm handleSubmit={handleCreatingRecords} id={-1} />
+      )}
     </div>
   );
 };

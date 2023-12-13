@@ -1,4 +1,6 @@
-# fake-discogs-api
+# fake-discogs
+
+Fake discogs without a single line of styling code
 
 ## To be implemented
 

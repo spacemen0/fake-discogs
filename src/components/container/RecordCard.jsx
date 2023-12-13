@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
-
-const RecordCard = ({ record, expandable }) => {
+import { useAuthContext } from "../../contexts/AuthContext";
+const RecordCard = ({ record, expandable, handleDelete }) => {
+  const { userInfo } = useAuthContext();
   return (
     <div className="record-card">
       <h2>{record.title}</h2>
@@ -14,6 +15,18 @@ const RecordCard = ({ record, expandable }) => {
 
       <p>Seller:</p>
       <Link to={`/user/${record.seller_name}`}>{record.seller_name}</Link>
+      {userInfo && userInfo.username === record.seller_name && (
+        <>
+          <p></p>
+          <button
+            onClick={() => {
+              handleDelete(record.ID);
+            }}
+          >
+            Delete
+          </button>
+        </>
+      )}
     </div>
   );
 };

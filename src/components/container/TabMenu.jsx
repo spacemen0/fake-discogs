@@ -49,7 +49,7 @@ const TabMenu = ({ setRecords, getAllRecords }) => {
         status,
       }),
     });
-    if (response.status === 201) {
+    if (response.status === 201 && image) {
       const data = await response.json();
       setShowRecordForm(false);
       const formData = new FormData();

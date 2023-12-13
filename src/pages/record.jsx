@@ -27,7 +27,7 @@ function Record() {
   }
   useEffect(() => {
     fetchData();
-  }, []);
+  });
 
   return (
     <div>

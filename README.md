@@ -2,6 +2,10 @@
 
 Fake discogs without a single line of styling code
 
+# api
+
+https://github.com/spacemen0/fake-discogs-api
+
 ## To be implemented
 
 - [x] /api/v1/user-register
